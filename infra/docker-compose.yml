@@ -1,6 +1,21 @@
 version: '3.3'
 services:
-  mysql:
+  mysql_inventory:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'inventory-service'
+      MYSQL_USER: 'barney'
+      MYSQL_PASSWORD: 'barney'
+      MYSQL_ROOT_PASSWORD: 'barney'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    volumes:
+      - my-db1:/var/lib/mysql
+  
+  mysql_order:
     image: mysql:5.7
     restart: always
     environment:
@@ -13,7 +28,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql
+      - my-db2:/var/lib/mysql
 
   mongodb:
     image: mongo:6-jammy
@@ -23,4 +38,5 @@ services:
       - dbdata6:/data/db
 volumes:
   dbdata6:
-  my-db:
+  my-db1:
+  my-db2:
