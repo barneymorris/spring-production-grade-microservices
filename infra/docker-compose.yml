@@ -1,5 +1,20 @@
 version: '3.3'
 services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'order-service'
+      MYSQL_USER: 'barney'
+      MYSQL_PASSWORD: 'barney'
+      MYSQL_ROOT_PASSWORD: 'barney'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
   mongodb:
     image: mongo:6-jammy
     ports:
@@ -8,3 +23,4 @@ services:
       - dbdata6:/data/db
 volumes:
   dbdata6:
+  my-db:
